@@ -45,7 +45,7 @@ main {
 }
 .form {
   display: flex;
-  gap: 5px;
+  /* gap: 5px; */
   padding: 16px;
   flex-wrap: wrap;
 
@@ -92,7 +92,8 @@ main {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 6px;
+  width: 190px;
   /* padding: 16px;
   width: 100%;
   display: grid;
@@ -106,8 +107,8 @@ main {
 }
 
 .form > form > input {
-  /* width: 50%; */
-  margin: auto;
+  width: 65%;
+  /* margin: auto; */
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 8px;
