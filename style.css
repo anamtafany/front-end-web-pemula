@@ -20,7 +20,7 @@ button {
   background-color: darkgreen;
   color: white;
   min-width: 400px;
-  width: 400px;
+  width: 500px;
   margin: auto;
   margin-top: 25px;
   border-radius: 10px 10px 0 0;
@@ -39,7 +39,7 @@ main {
   box-shadow: 3px 3px 10px rgb(161, 160, 160);
   border-radius: 0 0 10px 10px;
   max-width: 800px;
-  width: 400px;
+  width: 500px;
   margin: 0 auto;
   /* margin-top: 20px; */
 }
@@ -118,7 +118,7 @@ main {
 
 .content-input {
   max-width: 500px;
-  width: 400px;
+  width: 500px;
   margin: 0 auto;
   margin-top: 16px;
   display: flex;
@@ -134,15 +134,6 @@ main {
   text-align: center;
   color: darkgreen;
 }
-
-/* .input {
-  margin: auto;
-  width: 50%;
-  column-gap: 100px;
-}
-
-.input input {
-} */
 
 .tambah {
   border: 0;
@@ -220,6 +211,21 @@ main {
   .daftar-buku {
     flex-direction: column;
     gap: 1px;
+  }
+
+  .heading-judul {
+    min-width: 300px;
+    width: 300px;
+  }
+
+  .content-pencarian {
+    max-width: 400px;
+    width: 300px;
+  }
+
+  .content-input {
+    max-width: 400px;
+    width: 300px;
   }
 }
 
