@@ -207,28 +207,6 @@ main {
   margin: auto;
 }
 
-@media screen and (max-width: 480px) {
-  .daftar-buku {
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .heading-judul {
-    min-width: 300px;
-    width: 300px;
-  }
-
-  .content-pencarian {
-    max-width: 400px;
-    width: 300px;
-  }
-
-  .content-input {
-    max-width: 400px;
-    width: 300px;
-  }
-}
-
 .list-content-buku {
   margin: 16px 0 0 0;
   box-shadow: 3px 3px 10px rgb(161, 160, 160);
@@ -237,9 +215,38 @@ main {
   width: 400px;
 }
 
+@media screen and (max-width: 480px) {
+  .daftar-buku {
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .heading-judul {
+    min-width: 370px;
+    width: 370px;
+  }
+
+  .content-pencarian {
+    max-width: 400px;
+    width: 370px;
+  }
+
+  .content-input {
+    max-width: 400px;
+    width: 370px;
+  }
+  .list-content-buku {
+    width: 370px;
+  }
+  .heading-judul-content {
+    width: 370px;
+  }
+}
+
 .heading-judul-content {
   background-color: darkgreen;
   max-width: 500px;
+
   height: 50px;
   padding-top: 7px;
   border-radius: 10px 10px 0 0;
