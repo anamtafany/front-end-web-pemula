@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pustaka Santri</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="heading-judul">
+      <h1 class="judul-pustaka">Pustaka Santri</h1>
+    </header>
+    <main>
+      <section class="content-pencarian">
+        <h2>Cari Buku</h2>
+        <div class="form">
+          <form id="cari-buku">
+            <!-- <label for="searchBookTitle">Judul</label> -->
+            <input
+              id="cari-judul-buku"
+              placeholder="Cari Judul Buku"
+              type="text"
+            />
+            <button class="tombol-cari" id="cari-submit" type="submit">
+              Cari
+            </button>
+          </form>
+          <button class="button-reset" id="reset">Reset</button>
+        </div>
+      </section>
+      <section class="content-input">
+        <h2>Tambahkan Buku Baru</h2>
+        <button class="tambah" id="tambah">Tambah</button>
+        <form id="input-buku" style="display: none">
+          <div class="input">
+            <!-- <label for="inputBookTitle">Judul</label> -->
+            <input id="id" type="hidden" />
+          </div>
+          <div class="input">
+            <!-- <label for="inputBookTitle">Judul</label> -->
+            <input
+              id="input-judul-buku"
+              placeholder="Masukkan JUDUL"
+              type="text"
+              required
+            />
+          </div>
+          <div class="input">
+            <!-- <label for="inputBookAuthor">Penulis</label> -->
+            <input
+              id="input-penulis-buku"
+              placeholder="Masukkan PENULIS"
+              type="text"
+              required
+            />
+          </div>
+          <div class="input">
+            <!-- <label for="inputBookYear">Tahun</label> -->
+            <input
+              id="input-tahun-buku"
+              placeholder="Masukkan TAHUN"
+              type="number"
+              required
+            />
+          </div>
+          <div class="cek-input">
+            <label for="input-buku-cekSelesai">Selesai dibaca</label>
+            <input id="input-buku-cekSelesai" type="checkbox" />
+          </div>
+          <button id="submit-buku" type="submit">
+            Tambah buku ke daftar <span>Belum selesai dibaca</span>
+          </button>
+        </form>
+      </section>
+
+      <div class="daftar-buku">
+        <section class="list-content-buku">
+          <div class="heading-judul-content">
+            <h2>Belum selesai dibaca</h2>
+          </div>
+
+          <div id="listBukuBelumSelesaiDibaca" class="list-buku">
+            <!-- <article class="book_item">
+        <h3>Book Title</h3>
+        <p>Penulis: John Doe</p>
+        <p>Tahun: 2002</p>
+        
+        <div class="action">
+          <button class="green">Selesai dibaca</button>
+          <button class="red">Hapus buku</button>
+        </div>
+      </article> -->
+          </div>
+        </section>
+
+        <section class="list-content-buku">
+          <div class="heading-judul-content">
+            <h2>Buku selesai dibaca</h2>
+          </div>
+
+          <div id="listBukuSelesaiDibaca" class="list-buku">
+            <!-- <article class="book_item">-->
+            <!--        <h3>Book Title</h3>-->
+            <!--        <p>Penulis: John Doe</p>-->
+            <!--        <p>Tahun: 2002</p>-->
+            <!--        -->
+            <!--        <div class="action">-->
+            <!--          <button class="green">Belum selesai di Baca</button>-->
+            <!--          <button class="red">Hapus buku</button>-->
+            <!--        </div>-->
+            <!--      </article> -->
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="book.js"></script>
+  </body>
+</html>

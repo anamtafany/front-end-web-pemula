@@ -1,0 +1,297 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+button {
+  font-size: 16px;
+}
+
+.heading-judul {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: darkgreen;
+  color: white;
+  min-width: 400px;
+  width: 400px;
+  margin: auto;
+  margin-top: 25px;
+  border-radius: 10px 10px 0 0;
+}
+
+main {
+  margin: 0 auto 20px auto;
+}
+
+.content-pencarian {
+  /* margin: 16px 0; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  box-shadow: 3px 3px 10px rgb(161, 160, 160);
+  border-radius: 0 0 10px 10px;
+  max-width: 800px;
+  width: 400px;
+  margin: 0 auto;
+  /* margin-top: 20px; */
+}
+.form {
+  display: flex;
+  gap: 5px;
+  padding: 16px;
+  flex-wrap: wrap;
+
+  /* width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr 0.5fr;
+  grid-gap: 10px; */
+}
+.form > form > button {
+  background-color: darkgreen;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px 10px;
+  box-shadow: 1px 1px 5px rgb(161, 160, 160);
+}
+
+.form > form > button:hover {
+  background-color: rgb(2, 135, 2);
+}
+
+.form > button {
+  background-color: darkred;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px 10px;
+  margin: auto;
+  box-shadow: 1px 1px 5px rgb(161, 160, 160);
+}
+
+.form > button:hover {
+  background-color: rgb(178, 2, 2);
+}
+
+.content-pencarian > h2 {
+  color: darkgreen;
+}
+
+.form > form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  /* padding: 16px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr 0.5fr;
+  grid-gap: 10px; */
+}
+
+.content-pencarian > form > label {
+  display: flex;
+  align-items: center;
+}
+
+.form > form > input {
+  /* width: 50%; */
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 0;
+  box-shadow: 1px 1px 5px rgb(161, 160, 160);
+}
+
+.content-input {
+  max-width: 500px;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  box-shadow: 3px 3px 10px rgb(161, 160, 160);
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  /* background-color: darkgreen; */
+}
+
+.content-input > h2 {
+  text-align: center;
+  color: darkgreen;
+}
+
+/* .input {
+  margin: auto;
+  width: 50%;
+  column-gap: 100px;
+}
+
+.input input {
+} */
+
+.tambah {
+  border: 0;
+  padding: 5px;
+  background-color: darkgreen;
+  color: white;
+  border-radius: 10px;
+  width: 120px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px rgb(161, 160, 160);
+}
+.tambah:hover {
+  background-color: rgb(2, 135, 2);
+}
+
+.content-input > form > button {
+  background-color: darkgreen;
+  color: white;
+  border: 0;
+  box-shadow: 3px 3px 10px rgb(161, 160, 160);
+  border-radius: 5px;
+  display: block;
+  width: 50%;
+  padding: 8px;
+  cursor: pointer;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+/* .content-input:hover {
+  background-color: rgb(2, 135, 2);
+} */
+
+.content-input span {
+  font-weight: bold;
+}
+
+.input input {
+  display: block;
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 0;
+  box-shadow: 1px 1px 5px rgb(161, 160, 160);
+}
+
+.cek-input {
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cek-input label {
+  color: darkgreen;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.daftar-buku {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: max-content;
+  margin: auto;
+}
+
+@media screen and (max-width: 480px) {
+  .daftar-buku {
+    flex-direction: column;
+    gap: 1px;
+  }
+}
+
+.list-content-buku {
+  margin: 16px 0 0 0;
+  box-shadow: 3px 3px 10px rgb(161, 160, 160);
+  /* padding: 16px; */
+  border-radius: 10px;
+  width: 400px;
+}
+
+.heading-judul-content {
+  background-color: darkgreen;
+  max-width: 500px;
+  height: 50px;
+  padding-top: 7px;
+  border-radius: 10px 10px 0 0;
+}
+.list-content-buku h2 {
+  color: white;
+  text-align: center;
+}
+
+.list-buku {
+  padding: 16px;
+}
+
+.book_item {
+  padding: 8px 16px 16px 16px;
+  border: 0;
+  border: 1px solid darkgreen;
+  /* box-shadow: 3px 3px 10px rgb(161, 160, 160); */
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.book_item h3,
+p {
+  margin: 8px 0;
+}
+
+.action button {
+  border: 0;
+  padding: 5px;
+  margin: 0 5px 0 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.green {
+  background-color: darkgreen;
+  color: white;
+}
+
+.green:hover {
+  background-color: rgb(2, 135, 2);
+}
+
+.yellow {
+  background-color: darkgoldenrod;
+  color: white;
+}
+
+.yellow:hover {
+  background-color: rgb(236, 174, 16);
+}
+
+.red {
+  background-color: darkred;
+  color: white;
+}
+
+.red:hover {
+  background-color: rgb(178, 2, 2);
+}
