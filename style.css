@@ -77,6 +77,7 @@ main {
   padding: 8px 10px;
   margin: auto;
   box-shadow: 1px 1px 5px rgb(161, 160, 160);
+  margin-left: 5px;
 }
 
 .form > button:hover {
@@ -91,9 +92,9 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   gap: 6px;
-  width: 190px;
+
   /* padding: 16px;
   width: 100%;
   display: grid;
@@ -107,7 +108,7 @@ main {
 }
 
 .form > form > input {
-  width: 65%;
+  /* width: 65%; */
   /* margin: auto; */
   margin-top: 20px;
   margin-bottom: 20px;
@@ -241,6 +242,15 @@ main {
   }
   .heading-judul-content {
     width: 370px;
+  }
+  .form > form {
+    width: 190px;
+  }
+  .form > form > input {
+    width: 65%;
+  }
+  .form > button {
+    margin-left: 0;
   }
 }
 

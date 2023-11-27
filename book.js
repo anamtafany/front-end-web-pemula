@@ -12,6 +12,21 @@ const cekSelesai = document.getElementById("input-buku-cekSelesai");
 const UPDATE_DATA = "DATA_BUKU";
 const STORAGE_KEY = "FORM_BUKU";
 let isSearch = false;
+const contenInput = document.querySelector(".content-input");
+const h2Tambah = document.createElement("h2");
+h2Tambah.innerText = "Tambahkan Buku Baru";
+contenInput.appendChild(h2Tambah);
+contenInput.insertBefore(h2Tambah, contenInput.children[0]);
+
+const buttonTambah = document.querySelector(".tambah");
+
+// const buku = {
+//   id: +new Date(),
+//   judul: inputJudul.value,
+//   penulis: inputPenulis.value,
+//   tahun: inputTahun.value,
+//   cekSelesai: cekSelesai.checked,
+// };
 
 const reset = document.getElementById("reset");
 reset.addEventListener("click", function () {
@@ -37,26 +52,61 @@ document.addEventListener("DOMContentLoaded", function () {
 formInput.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const buku = {
-    id: +new Date(),
-    judul: inputJudul.value,
-    penulis: inputPenulis.value,
-    tahun: inputTahun.value,
-    cekSelesai: cekSelesai.checked,
-  };
-  form.push(buku);
+  if (inputId.value) {
+    // const indexObject = findObjectBuku(id);
+    const bukuIndex = form.findIndex((buku) => buku.id == inputId.value);
 
+    form[bukuIndex].judul = inputJudul.value;
+    form[bukuIndex].penulis = inputPenulis.value;
+    form[bukuIndex].tahun = inputTahun.value;
+
+    document.dispatchEvent(new Event(EVENT_BARU));
+    // formInput.reset();
+    saveData();
+
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Anda berhasil mengedit buku",
+      showConfirmButton: false,
+      timer: 2500,
+    });
+
+    // temukan object index berdasarkan inputId.value
+    // objectyangditemukan.judul = inputjudul.value
+    // ganti object yangn ditemukan dengan nilai yang baru
+    // simpan
+    // alert
+
+    console.log(form[bukuIndex]);
+  } else {
+    const buku = {
+      id: +new Date(),
+      judul: inputJudul.value,
+      penulis: inputPenulis.value,
+      tahun: inputTahun.value,
+      cekSelesai: cekSelesai.checked,
+    };
+    form.push(buku);
+
+    // ubahDataEdit();
+    // tampilkanEditBuku(buku);
+
+    document.dispatchEvent(new Event(EVENT_BARU));
+    document.getElementById("input-buku").reset();
+    saveData();
+
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Anda berhasil menambah buku",
+      showConfirmButton: false,
+      timer: 2500,
+    });
+  }
+
+  // h2Tambah.innerText = "Tambahkan Buku Baru";
   document.dispatchEvent(new Event(EVENT_BARU));
-  document.getElementById("input-buku").reset();
-  saveData();
-
-  Swal.fire({
-    position: "center",
-    icon: "success",
-    title: "Anda berhasil menambah buku",
-    showConfirmButton: false,
-    timer: 2500,
-  });
 });
 
 const formCari = document.getElementById("cari-buku");
@@ -90,7 +140,9 @@ document.addEventListener(EVENT_BARU, function () {
     if (isSearch) {
       bookSearch = form.filter(
         (book) =>
-          book.judul.toLowerCase().search(inputData.value.toLowerCase()) != -1
+          book.judul.toLowerCase().search(inputData.value.toLowerCase()) !=
+            -1 ||
+          book.penulis.toLowerCase().search(inputData.value.toLowerCase()) != -1
       );
     }
 
@@ -145,11 +197,11 @@ function editBuku(id, statusBuku) {
       tahun: inputTahun.value,
       cekSelesai: cekSelesai.checked,
     };
-    // form[index] = { ...form[index], ...dataBaru };
+
     buku.cekSelesai = statusBuku;
     // formInput.push(buku);
     console.log("Data buku berhasil diedit");
-    con;
+
     // document.dispatchEvent(new Event(EVENT_BARU));
   } else {
     const buku = {
@@ -159,12 +211,33 @@ function editBuku(id, statusBuku) {
       tahun: inputTahun.value,
       cekSelesai: cekSelesai.checked,
     };
+    // buku.judul = inputJudul.value;
+    // buku.penulis = inputPenulis.value;
+    // buku.tahun = inputTahun.value;
     buku.cekSelesai = statusBuku;
+
     console.log("Data buku tidak ditemukan");
     // formInput.push(buku);
     document.dispatchEvent(new Event(EVENT_BARU));
   }
 }
+
+// function ubahDataEdit() {
+//   if (
+//     inputJudul.value !== buku.judul ||
+//     inputPenulis.value !== buku.penulis ||
+//     inputTahun.value !== buku.tahun ||
+//     cekSelesai.checked !== buku.cekSelesai
+//   ) {
+//     buku.judul = inputJudul.value;
+//     buku.penulis = inputPenulis.value;
+//     buku.tahun = inputTahun.value;
+//     buku.cekSelesai = cekSelesai.checked;
+//     console.log("berhasil diperbarui", buku);
+//   } else {
+//     alert("data sama tidak ada perubahan");
+//   }
+// }
 
 function hapusData(bukuId) {
   const bukuTarget = findIndexBuku(bukuId);
@@ -270,11 +343,27 @@ function belum(buku) {
   buttonEdit.innerText = "Edit";
 
   buttonEdit.addEventListener("click", function () {
-    editBuku(id, false);
-    tampilkanEditBuku(buku);
-    formInput.style.display = "block";
-    tambah.innerText = "Sembunyikan";
+    Swal.fire({
+      title: "Buku Mau Diedit?",
+      text: "Data buku akan diedit!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "darkgreen",
+      cancelButtonColor: "darkred",
+      confirmButtonText: "Ya, Edit!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editBuku(id, false);
+        tampilkanEditBuku(buku);
+        h2Tambah.innerText = "Edit Buku";
+        formInput.style.display = "block";
+        tambah.innerText = "Sembunyikan";
+      }
+    });
+
     // console.log(buku);
+    // inputId.value = buku.id;
+    // inputJudul.value = buku.judul;
   });
 
   const buttonHapus = document.createElement("button");
@@ -348,11 +437,25 @@ function sudah(buku) {
   buttonEdit.innerText = "Edit";
 
   buttonEdit.addEventListener("click", function () {
-    editBuku(id, true);
-    tampilkanEditBuku(buku);
-    formInput.style.display = "block";
-    tambah.innerText = "Sembunyikan";
-    console.log(buku);
+    Swal.fire({
+      title: "Buku Mau Diedit?",
+      text: "Data buku akan diedit!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "darkgreen",
+      cancelButtonColor: "darkred",
+      confirmButtonText: "Ya, Edit!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editBuku(id, true);
+        tampilkanEditBuku(buku);
+        h2Tambah.innerText = "Edit Buku";
+        formInput.style.display = "block";
+        tambah.innerText = "Sembunyikan";
+      }
+    });
+
+    // console.log(buku);
   });
 
   const buttonHapus = document.createElement("button");
