@@ -105,19 +105,11 @@ const inputData = document.getElementById("cari-judul-buku");
 formCari.addEventListener("submit", function (e) {
   e.preventDefault();
   // alert tidak muncul ketika pencarian tidak ditemuka
-  if (dataBuku == 0) {
-    Swal.fire({
-      title: "Tidak Ada Buku!",
-      text: "Buku yang anda cari tidak ditemukan",
-      icon: "info",
-    });
-    console.log("Tidak ditemukan data");
-  } else {
-    isSearch = true;
-    document.dispatchEvent(new Event(EVENT_BARU));
-    formCari.reset();
-    saveData();
-  }
+
+  isSearch = true;
+  document.dispatchEvent(new Event(EVENT_BARU));
+  formCari.reset();
+  saveData();
 });
 
 document.addEventListener(EVENT_BARU, function () {
@@ -136,23 +128,31 @@ document.addEventListener(EVENT_BARU, function () {
       );
     }
 
-    const bukuSelesaiDibaca = bookSearch.filter(
-      (buku) => buku.cekSelesai == true
-    );
-    const bukuBelumSelesaiDibaca = bookSearch.filter(
-      (buku) => buku.cekSelesai == false
-    );
-
-    if (bukuBelumSelesaiDibaca.length > 0) {
-      bukuBelumSelesaiDibaca.forEach((buku) => {
-        belum(buku);
+    if (bookSearch.length == 0) {
+      Swal.fire({
+        title: "Tidak Ada Buku!",
+        text: "Buku yang anda cari tidak ditemukan",
+        icon: "info",
       });
-    }
+    } else {
+      const bukuSelesaiDibaca = bookSearch.filter(
+        (buku) => buku.cekSelesai == true
+      );
+      const bukuBelumSelesaiDibaca = bookSearch.filter(
+        (buku) => buku.cekSelesai == false
+      );
 
-    if (bukuSelesaiDibaca.length > 0) {
-      bukuSelesaiDibaca.forEach((buku) => {
-        sudah(buku);
-      });
+      if (bukuBelumSelesaiDibaca.length > 0) {
+        bukuBelumSelesaiDibaca.forEach((buku) => {
+          belum(buku);
+        });
+      }
+
+      if (bukuSelesaiDibaca.length > 0) {
+        bukuSelesaiDibaca.forEach((buku) => {
+          sudah(buku);
+        });
+      }
     }
   }
   isSearch = false;
@@ -203,7 +203,6 @@ function editBuku(id, statusBuku) {
     buku.cekSelesai = statusBuku;
 
     console.log("Data buku tidak ditemukan");
-    // formInput.push(buku);
     document.dispatchEvent(new Event(EVENT_BARU));
   }
 }
@@ -463,9 +462,7 @@ function cekStorage() {
   return true;
 }
 
-document.addEventListener(UPDATE_DATA, function () {
-  // console.log(localStorage.getItem(STORAGE_KEY));
-});
+document.addEventListener(UPDATE_DATA, function () {});
 
 function ambilDataDariStorage() {
   const dataDariStorage = localStorage.getItem(STORAGE_KEY);
