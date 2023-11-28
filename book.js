@@ -96,13 +96,15 @@ formInput.addEventListener("submit", function (event) {
   h2Tambah.innerText = "Tambahkan Buku Baru";
   document.dispatchEvent(new Event(EVENT_BARU));
   formInput.reset();
+  // Meskipun formInput sudah reset ketika mengisi data baru tetap tdk menambah data baru  tapi tetap mengedit data
+  dataBuku.reset();
 });
 
 const formCari = document.getElementById("cari-buku");
 const inputData = document.getElementById("cari-judul-buku");
 formCari.addEventListener("submit", function (e) {
   e.preventDefault();
-
+  // alert tidak muncul ketika pencarian tidak ditemuka
   if (dataBuku == 0) {
     Swal.fire({
       title: "Tidak Ada Buku!",
@@ -187,10 +189,8 @@ function editBuku(id, statusBuku) {
     };
 
     buku.cekSelesai = statusBuku;
-    // formInput.push(buku);
-    console.log("Data buku berhasil diedit");
 
-    // document.dispatchEvent(new Event(EVENT_BARU));
+    console.log("Data buku berhasil diedit");
   } else {
     const buku = {
       id: +new Date(),
