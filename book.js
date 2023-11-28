@@ -1,4 +1,4 @@
-const form = [];
+const dataBuku = [];
 const EVENT_BARU = "event-input";
 
 const formInput = document.getElementById("input-buku");
@@ -9,24 +9,16 @@ const inputJudul = document.getElementById("input-judul-buku");
 const inputPenulis = document.getElementById("input-penulis-buku");
 const inputTahun = document.getElementById("input-tahun-buku");
 const cekSelesai = document.getElementById("input-buku-cekSelesai");
+const belumSelesaiDibaca = document.getElementById(
+  "listBukuBelumSelesaiDibaca"
+);
+const selesaiDibaca = document.getElementById("listBukuSelesaiDibaca");
 const UPDATE_DATA = "DATA_BUKU";
 const STORAGE_KEY = "FORM_BUKU";
 let isSearch = false;
 const contenInput = document.querySelector(".content-input");
 const h2Tambah = document.createElement("h2");
-h2Tambah.innerText = "Tambahkan Buku Baru";
-contenInput.appendChild(h2Tambah);
-contenInput.insertBefore(h2Tambah, contenInput.children[0]);
-
 const buttonTambah = document.querySelector(".tambah");
-
-// const buku = {
-//   id: +new Date(),
-//   judul: inputJudul.value,
-//   penulis: inputPenulis.value,
-//   tahun: inputTahun.value,
-//   cekSelesai: cekSelesai.checked,
-// };
 
 const reset = document.getElementById("reset");
 reset.addEventListener("click", function () {
@@ -39,8 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (cekStorage()) {
     ambilDataDariStorage();
   }
+
+  h2Tambah.innerText = "Tambahkan Buku Baru";
+  contenInput.appendChild(h2Tambah);
+  contenInput.insertBefore(h2Tambah, contenInput.children[0]);
   document.dispatchEvent(new Event(EVENT_BARU));
-  if (form == 0) {
+  if (dataBuku == 0) {
     Swal.fire({
       title: "Belum Ada Data Buku!",
       text: "Silahkan tambahkan data buku.",
@@ -53,32 +49,26 @@ formInput.addEventListener("submit", function (event) {
   event.preventDefault();
 
   if (inputId.value) {
-    // const indexObject = findObjectBuku(id);
-    const bukuIndex = form.findIndex((buku) => buku.id == inputId.value);
+    const bukuIndex = dataBuku.findIndex((buku) => buku.id == inputId.value);
 
-    form[bukuIndex].judul = inputJudul.value;
-    form[bukuIndex].penulis = inputPenulis.value;
-    form[bukuIndex].tahun = inputTahun.value;
+    dataBuku[bukuIndex].judul = inputJudul.value;
+    dataBuku[bukuIndex].penulis = inputPenulis.value;
+    dataBuku[bukuIndex].tahun = inputTahun.value;
+    dataBuku[bukuIndex].cekSelesai = cekSelesai.checked;
 
     document.dispatchEvent(new Event(EVENT_BARU));
-    // formInput.reset();
+
     saveData();
 
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Anda berhasil mengedit buku",
+      title: "Buku berhasil diedit",
       showConfirmButton: false,
       timer: 2500,
     });
 
-    // temukan object index berdasarkan inputId.value
-    // objectyangditemukan.judul = inputjudul.value
-    // ganti object yangn ditemukan dengan nilai yang baru
-    // simpan
-    // alert
-
-    console.log(form[bukuIndex]);
+    console.log(dataBuku[bukuIndex]);
   } else {
     const buku = {
       id: +new Date(),
@@ -87,10 +77,7 @@ formInput.addEventListener("submit", function (event) {
       tahun: inputTahun.value,
       cekSelesai: cekSelesai.checked,
     };
-    form.push(buku);
-
-    // ubahDataEdit();
-    // tampilkanEditBuku(buku);
+    dataBuku.push(buku);
 
     document.dispatchEvent(new Event(EVENT_BARU));
     document.getElementById("input-buku").reset();
@@ -104,41 +91,42 @@ formInput.addEventListener("submit", function (event) {
       timer: 2500,
     });
   }
-
-  // h2Tambah.innerText = "Tambahkan Buku Baru";
+  formInput.style.display = "none";
+  tambah.innerText = "Tambah";
+  h2Tambah.innerText = "Tambahkan Buku Baru";
   document.dispatchEvent(new Event(EVENT_BARU));
+  formInput.reset();
 });
 
 const formCari = document.getElementById("cari-buku");
 const inputData = document.getElementById("cari-judul-buku");
 formCari.addEventListener("submit", function (e) {
   e.preventDefault();
-  // const val = inputData.value;
-  isSearch = true;
-  document.dispatchEvent(new Event(EVENT_BARU));
-  formCari.reset();
-  saveData();
+
+  if (dataBuku == 0) {
+    Swal.fire({
+      title: "Tidak Ada Buku!",
+      text: "Buku yang anda cari tidak ditemukan",
+      icon: "info",
+    });
+    console.log("Tidak ditemukan data");
+  } else {
+    isSearch = true;
+    document.dispatchEvent(new Event(EVENT_BARU));
+    formCari.reset();
+    saveData();
+  }
 });
 
 document.addEventListener(EVENT_BARU, function () {
-  const belumSelesaiDibaca = document.getElementById(
-    "listBukuBelumSelesaiDibaca"
-  );
   belumSelesaiDibaca.innerHTML = "";
 
-  const selesaiDibaca = document.getElementById("listBukuSelesaiDibaca");
   selesaiDibaca.innerHTML = "";
 
-  // for (const bukuItem of form) {
-  //   const bukuElement = belum(bukuItem);
-  //   if (!bukuItem.cekSelesai) belumSelesaiDibaca.append(bukuElement);
-  //   else selesaiDibaca.append(bukuElement);
-  // }
-
-  if (form.length > 0) {
-    let bookSearch = form;
+  if (dataBuku.length > 0) {
+    let bookSearch = dataBuku;
     if (isSearch) {
-      bookSearch = form.filter(
+      bookSearch = dataBuku.filter(
         (book) =>
           book.judul.toLowerCase().search(inputData.value.toLowerCase()) !=
             -1 ||
@@ -169,8 +157,8 @@ document.addEventListener(EVENT_BARU, function () {
 });
 
 function findObjectBuku(id) {
-  for (const idObject in form) {
-    if (form[idObject].id === id) {
+  for (const idObject in dataBuku) {
+    if (dataBuku[idObject].id === id) {
       return idObject;
     }
   }
@@ -211,9 +199,7 @@ function editBuku(id, statusBuku) {
       tahun: inputTahun.value,
       cekSelesai: cekSelesai.checked,
     };
-    // buku.judul = inputJudul.value;
-    // buku.penulis = inputPenulis.value;
-    // buku.tahun = inputTahun.value;
+
     buku.cekSelesai = statusBuku;
 
     console.log("Data buku tidak ditemukan");
@@ -222,36 +208,19 @@ function editBuku(id, statusBuku) {
   }
 }
 
-// function ubahDataEdit() {
-//   if (
-//     inputJudul.value !== buku.judul ||
-//     inputPenulis.value !== buku.penulis ||
-//     inputTahun.value !== buku.tahun ||
-//     cekSelesai.checked !== buku.cekSelesai
-//   ) {
-//     buku.judul = inputJudul.value;
-//     buku.penulis = inputPenulis.value;
-//     buku.tahun = inputTahun.value;
-//     buku.cekSelesai = cekSelesai.checked;
-//     console.log("berhasil diperbarui", buku);
-//   } else {
-//     alert("data sama tidak ada perubahan");
-//   }
-// }
-
 function hapusData(bukuId) {
   const bukuTarget = findIndexBuku(bukuId);
 
   if (bukuTarget === -1) return;
 
-  form.splice(bukuTarget, 1);
+  dataBuku.splice(bukuTarget, 1);
   document.dispatchEvent(new Event(EVENT_BARU));
   saveData();
 }
 
 function findIndexBuku(bukuId) {
-  for (const index in form) {
-    if (form[index].id === bukuId) {
+  for (const index in dataBuku) {
+    if (dataBuku[index].id === bukuId) {
       return index;
     }
   }
@@ -275,9 +244,11 @@ function hapusBuku(buku, statusBuku) {
       document.dispatchEvent(new Event(EVENT_BARU));
       saveData();
       Swal.fire({
-        title: "Berhasil!",
-        text: "Buku berhasil dihapus.",
+        position: "center",
         icon: "success",
+        title: "Buku berhasil dihapus",
+        showConfirmButton: false,
+        timer: 2500,
       });
     }
   });
@@ -328,9 +299,11 @@ function belum(buku) {
         document.dispatchEvent(new Event(EVENT_BARU));
         saveData();
         Swal.fire({
-          title: "Berhasil!",
-          text: "Buku berhasil dipindah.",
+          position: "center",
           icon: "success",
+          title: "Buku berhasil dipindah",
+          showConfirmButton: false,
+          timer: 2500,
         });
       }
     });
@@ -358,12 +331,12 @@ function belum(buku) {
         h2Tambah.innerText = "Edit Buku";
         formInput.style.display = "block";
         tambah.innerText = "Sembunyikan";
+        buku.cekSelesai = false;
+        console.log(editBuku);
       }
     });
 
-    // console.log(buku);
-    // inputId.value = buku.id;
-    // inputJudul.value = buku.judul;
+    console.log(buku);
   });
 
   const buttonHapus = document.createElement("button");
@@ -422,9 +395,11 @@ function sudah(buku) {
         document.dispatchEvent(new Event(EVENT_BARU));
         saveData();
         Swal.fire({
-          title: "Berhasil!",
-          text: "Buku berhasil dipindah.",
+          position: "center",
           icon: "success",
+          title: "Buku berhasil dipindah",
+          showConfirmButton: false,
+          timer: 2500,
         });
       }
     });
@@ -452,10 +427,12 @@ function sudah(buku) {
         h2Tambah.innerText = "Edit Buku";
         formInput.style.display = "block";
         tambah.innerText = "Sembunyikan";
+        console.log(editBuku);
       }
     });
+    buku.cekSelesai = true;
 
-    // console.log(buku);
+    console.log(buku);
   });
 
   const buttonHapus = document.createElement("button");
@@ -472,7 +449,7 @@ function sudah(buku) {
 
 function saveData() {
   if (cekStorage()) {
-    const parsed = JSON.stringify(form);
+    const parsed = JSON.stringify(dataBuku);
     localStorage.setItem(STORAGE_KEY, parsed);
     document.dispatchEvent(new Event(UPDATE_DATA));
   }
@@ -496,7 +473,7 @@ function ambilDataDariStorage() {
 
   if (data !== null) {
     for (const buku of data) {
-      form.push(buku);
+      dataBuku.push(buku);
     }
   }
   document.dispatchEvent(new Event(EVENT_BARU));
