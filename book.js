@@ -68,7 +68,6 @@ formInput.addEventListener("submit", function (event) {
       timer: 2500,
     });
     inputId.value = null;
-    // console.log(dataBuku[bukuIndex]);
   } else {
     const buku = {
       id: +new Date(),
@@ -95,16 +94,12 @@ formInput.addEventListener("submit", function (event) {
   tambah.innerText = "Tambah";
   h2Tambah.innerText = "Tambahkan Buku Baru";
   document.dispatchEvent(new Event(EVENT_BARU));
-
-  // Meskipun formInput sudah reset ketika mengisi data baru tetap tdk menambah data baru  tapi tetap mengedit data
-  // dataBuku.reset();
 });
 
 const formCari = document.getElementById("cari-buku");
 const inputData = document.getElementById("cari-judul-buku");
 formCari.addEventListener("submit", function (e) {
   e.preventDefault();
-  // alert tidak muncul ketika pencarian tidak ditemuka
 
   isSearch = true;
   document.dispatchEvent(new Event(EVENT_BARU));
@@ -189,8 +184,6 @@ function editBuku(id, statusBuku) {
     };
 
     buku.cekSelesai = statusBuku;
-
-    console.log("Data buku berhasil diedit");
   } else {
     const buku = {
       id: +new Date(),
@@ -202,7 +195,6 @@ function editBuku(id, statusBuku) {
 
     buku.cekSelesai = statusBuku;
 
-    console.log("Data buku tidak ditemukan");
     document.dispatchEvent(new Event(EVENT_BARU));
   }
 }
@@ -331,11 +323,8 @@ function belum(buku) {
         formInput.style.display = "block";
         tambah.innerText = "Sembunyikan";
         buku.cekSelesai = false;
-        console.log(editBuku);
       }
     });
-
-    console.log(buku);
   });
 
   const buttonHapus = document.createElement("button");
@@ -426,12 +415,9 @@ function sudah(buku) {
         h2Tambah.innerText = "Edit Buku";
         formInput.style.display = "block";
         tambah.innerText = "Sembunyikan";
-        console.log(editBuku);
       }
     });
     buku.cekSelesai = true;
-
-    console.log(buku);
   });
 
   const buttonHapus = document.createElement("button");
