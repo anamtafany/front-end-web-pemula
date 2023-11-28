@@ -57,7 +57,7 @@ formInput.addEventListener("submit", function (event) {
     dataBuku[bukuIndex].cekSelesai = cekSelesai.checked;
 
     document.dispatchEvent(new Event(EVENT_BARU));
-
+    formInput.reset();
     saveData();
 
     Swal.fire({
@@ -67,8 +67,8 @@ formInput.addEventListener("submit", function (event) {
       showConfirmButton: false,
       timer: 2500,
     });
-
-    console.log(dataBuku[bukuIndex]);
+    inputId.value = null;
+    // console.log(dataBuku[bukuIndex]);
   } else {
     const buku = {
       id: +new Date(),
@@ -95,9 +95,9 @@ formInput.addEventListener("submit", function (event) {
   tambah.innerText = "Tambah";
   h2Tambah.innerText = "Tambahkan Buku Baru";
   document.dispatchEvent(new Event(EVENT_BARU));
-  formInput.reset();
+
   // Meskipun formInput sudah reset ketika mengisi data baru tetap tdk menambah data baru  tapi tetap mengedit data
-  dataBuku.reset();
+  // dataBuku.reset();
 });
 
 const formCari = document.getElementById("cari-buku");
