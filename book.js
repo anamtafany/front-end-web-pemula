@@ -71,10 +71,10 @@ formInput.addEventListener("submit", function (event) {
   } else {
     const buku = {
       id: +new Date(),
-      judul: inputJudul.value,
-      penulis: inputPenulis.value,
-      tahun: inputTahun.value,
-      cekSelesai: cekSelesai.checked,
+      title: inputJudul.value,
+      author: inputPenulis.value,
+      year: Number(inputTahun.value),
+      isComplete: cekSelesai.checked,
     };
     dataBuku.push(buku);
 
@@ -165,10 +165,10 @@ function findObjectBuku(id) {
 function tampilkanEditBuku(buku) {
   const index = findObjectBuku(id);
   inputId.value = buku.id;
-  inputJudul.value = buku.judul;
-  inputPenulis.value = buku.penulis;
-  inputTahun.value = buku.tahun;
-  cekSelesai.checked = buku.cekSelesai;
+  inputJudul.value = buku.title;
+  inputPenulis.value = buku.author;
+  inputTahun.value = buku.year;
+  cekSelesai.checked = buku.isComplete;
 }
 
 function editBuku(id, statusBuku) {
@@ -177,23 +177,23 @@ function editBuku(id, statusBuku) {
   if (index !== -1) {
     const buku = {
       id: inputId.value,
-      judul: inputJudul.value,
-      penulis: inputPenulis.value,
-      tahun: inputTahun.value,
-      cekSelesai: cekSelesai.checked,
+      title: inputJudul.value,
+      author: inputPenulis.value,
+      year: Number(inputTahun.value),
+      isComplete: cekSelesai.checked,
     };
 
-    buku.cekSelesai = statusBuku;
+    buku.isComplete = statusBuku;
   } else {
     const buku = {
       id: +new Date(),
-      judul: inputJudul.value,
-      penulis: inputPenulis.value,
-      tahun: inputTahun.value,
-      cekSelesai: cekSelesai.checked,
+      title: inputJudul.value,
+      author: inputPenulis.value,
+      year: inputTahun.value,
+      isComplete: cekSelesai.checked,
     };
 
-    buku.cekSelesai = statusBuku;
+    buku.isComplete = statusBuku;
 
     document.dispatchEvent(new Event(EVENT_BARU));
   }
