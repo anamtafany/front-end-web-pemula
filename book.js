@@ -51,10 +51,10 @@ formInput.addEventListener("submit", function (event) {
   if (inputId.value) {
     const bukuIndex = dataBuku.findIndex((buku) => buku.id == inputId.value);
 
-    dataBuku[bukuIndex].judul = inputJudul.value;
-    dataBuku[bukuIndex].penulis = inputPenulis.value;
-    dataBuku[bukuIndex].tahun = inputTahun.value;
-    dataBuku[bukuIndex].cekSelesai = cekSelesai.checked;
+    dataBuku[bukuIndex].title = inputJudul.value;
+    dataBuku[bukuIndex].author = inputPenulis.value;
+    dataBuku[bukuIndex].year = inputTahun.value;
+    dataBuku[bukuIndex].isComplete = cekSelesai.checked;
 
     document.dispatchEvent(new Event(EVENT_BARU));
     formInput.reset();
