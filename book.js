@@ -94,6 +94,7 @@ formInput.addEventListener("submit", function (event) {
   tambah.innerText = "Tambah";
   h2Tambah.innerText = "Tambahkan Buku Baru";
   document.dispatchEvent(new Event(EVENT_BARU));
+  console.log(dataBuku);
 });
 
 const formCari = document.getElementById("cari-buku");
@@ -117,9 +118,9 @@ document.addEventListener(EVENT_BARU, function () {
     if (isSearch) {
       bookSearch = dataBuku.filter(
         (book) =>
-          book.judul.toLowerCase().search(inputData.value.toLowerCase()) !=
+          book.title.toLowerCase().search(inputData.value.toLowerCase()) !=
             -1 ||
-          book.penulis.toLowerCase().search(inputData.value.toLowerCase()) != -1
+          book.author.toLowerCase().search(inputData.value.toLowerCase()) != -1
       );
     }
 
@@ -131,10 +132,10 @@ document.addEventListener(EVENT_BARU, function () {
       });
     } else {
       const bukuSelesaiDibaca = bookSearch.filter(
-        (buku) => buku.cekSelesai == true
+        (buku) => buku.isComplete == true
       );
       const bukuBelumSelesaiDibaca = bookSearch.filter(
-        (buku) => buku.cekSelesai == false
+        (buku) => buku.isComplete == false
       );
 
       if (bukuBelumSelesaiDibaca.length > 0) {
@@ -231,7 +232,7 @@ function hapusBuku(buku, statusBuku) {
   }).then((result) => {
     if (result.isConfirmed) {
       hapusData(buku.id);
-      buku.cekSelesai = statusBuku;
+      buku.isComplete = statusBuku;
       document.dispatchEvent(new Event(EVENT_BARU));
       saveData();
       Swal.fire({
@@ -255,16 +256,16 @@ function belum(buku) {
 
   const h3 = document.createElement("h3");
   article.appendChild(h3);
-  h3.innerText = buku.judul;
+  h3.innerText = buku.title;
 
   const pPenulis = document.createElement("p");
   article.appendChild(pPenulis);
-  pPenulis.innerText = "Penulis: " + buku.penulis;
+  pPenulis.innerText = "Penulis: " + buku.author;
 
   const pTahun = document.createElement("p");
   article.appendChild(pTahun);
 
-  pTahun.innerText = "Tahun: " + buku.tahun;
+  pTahun.innerText = "Tahun: " + buku.year;
 
   const divAction = document.createElement("div");
   article.appendChild(divAction);
@@ -286,7 +287,7 @@ function belum(buku) {
       confirmButtonText: "Ya, Pindah!",
     }).then((result) => {
       if (result.isConfirmed) {
-        buku.cekSelesai = true;
+        buku.isComplete = true;
         document.dispatchEvent(new Event(EVENT_BARU));
         saveData();
         Swal.fire({
@@ -322,7 +323,7 @@ function belum(buku) {
         h2Tambah.innerText = "Edit Buku";
         formInput.style.display = "block";
         tambah.innerText = "Sembunyikan";
-        buku.cekSelesai = false;
+        buku.isComplete = false;
       }
     });
   });
@@ -348,16 +349,16 @@ function sudah(buku) {
   article.setAttribute("class", "book_item");
   const h3 = document.createElement("h3");
   article.appendChild(h3);
-  h3.innerText = buku.judul;
+  h3.innerText = buku.title;
 
   const pPenulis = document.createElement("p");
   article.appendChild(pPenulis);
-  pPenulis.innerText = "Penulis: " + buku.penulis;
+  pPenulis.innerText = "Penulis: " + buku.author;
 
   const pTahun = document.createElement("p");
   article.appendChild(pTahun);
 
-  pTahun.innerText = "Tahun: " + buku.tahun;
+  pTahun.innerText = "Tahun: " + buku.year;
   const divAction = document.createElement("div");
   article.appendChild(divAction);
   divAction.setAttribute("class", "action");
@@ -379,7 +380,7 @@ function sudah(buku) {
       confirmButtonText: "Ya, Pindah!",
     }).then((result) => {
       if (result.isConfirmed) {
-        buku.cekSelesai = false;
+        buku.isComplete = false;
         document.dispatchEvent(new Event(EVENT_BARU));
         saveData();
         Swal.fire({
@@ -417,7 +418,7 @@ function sudah(buku) {
         tambah.innerText = "Sembunyikan";
       }
     });
-    buku.cekSelesai = true;
+    buku.isComplete = true;
   });
 
   const buttonHapus = document.createElement("button");
