@@ -53,7 +53,7 @@ formInput.addEventListener("submit", function (event) {
 
     dataBuku[bukuIndex].title = inputJudul.value;
     dataBuku[bukuIndex].author = inputPenulis.value;
-    dataBuku[bukuIndex].year = inputTahun.value;
+    dataBuku[bukuIndex].year = Number(inputTahun.value);
     dataBuku[bukuIndex].isComplete = cekSelesai.checked;
 
     document.dispatchEvent(new Event(EVENT_BARU));
